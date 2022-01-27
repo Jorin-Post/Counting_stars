@@ -7,14 +7,19 @@ using namespace std;
 
 int count_pix(){
     ifstream nimage;
-    nimage.open("newpollo.ppm");
-    //skip headers
-    for (int i = 0; i < 4; i++)
-    {
-        string header = "";
-        nimage >> header;
-    }   
+    nimage.open("newapollo.ppm");
 
+    string type = "", width="", height="", RGB="";
+    nimage >> type;
+    nimage >> width;
+    nimage >> height;
+    nimage >> RGB;
+    int px = stoi(width) * stoi(height);
+
+    cout << "Type of PPM: " << type << endl;
+    cout << "Amount of Color: "<< RGB << endl;
+    cout << "Amount of px: " << px << endl;
+    
     string red ="", green="", blue="";
     int r=0, g=0, b=0, px_count;
     while (!nimage.eof())
@@ -81,6 +86,6 @@ int main(){
     int px_count = 0;
     black_white();
     px_count = count_pix();
-    cout << px_count << endl;
+    cout << "Px that are white: " << px_count << endl;
     return 0;        
 }
