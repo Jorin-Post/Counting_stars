@@ -5,23 +5,36 @@
 
 using namespace std;
 
+vector<int> vx;
+vector<int> vy;
+int count_stars(){
+
+    if (vx[1] == vx[0] +1 && vy[1] == vy [0]){
+        vx.erase(vx.begin()+0);
+    }
+
+    vy[0];
+}
 int count_pix(){
     ifstream nimage;
     nimage.open("newapollo.ppm");
 
-    string type = "", width="", height="", RGB="";
+    string type = "", w="", h="", RGB="";
     nimage >> type;
-    nimage >> width;
-    nimage >> height;
+    nimage >> w;
+    nimage >> h;
     nimage >> RGB;
-    int px = stoi(width) * stoi(height);
+    int width = stoi(w), height = stoi(h);
+    int px = width * height;
 
     cout << "Type of PPM: " << type << endl;
     cout << "Amount of Color: "<< RGB << endl;
     cout << "Amount of px: " << px << endl;
     
+    int x = 0, y = 0, xval = 0;
+
     string red ="", green="", blue="";
-    int r=0, g=0, b=0, px_count;
+    int r=0, g=0, b=0, px_count = 0;
     while (!nimage.eof())
     {
         nimage >> red;
@@ -34,10 +47,21 @@ int count_pix(){
 
         if (r == 255 && g == 255 && b == 255)
         {
+            vx.push_back(x);
+            vy.push_back(y);
             px_count++;
         }
+
         
+        if (x == width){
+            y++;
+            xval = x;
+            x = 0;
+        } 
+        x++;
     }
+    cout << "X count: " << xval << endl;
+    cout << "Y count: " << y << endl;
     return px_count;
 }
 void black_white(){
@@ -86,6 +110,9 @@ int main(){
     int px_count = 0;
     black_white();
     px_count = count_pix();
+    count_stars();
     cout << "Px that are white: " << px_count << endl;
+    cout << "vx that are white: " << vx.size() << endl;
+    cout << "vy that are white: " << vy.size() << endl;
     return 0;        
 }
