@@ -5,43 +5,40 @@
 
 using namespace std;
 
-vector<int> vx = {23, 24, 27, 30, 30, 40, 45, 46, 46};
-vector<int> vy = {2 , 2  ,10, 20, 21, 30, 31, 31, 32};
-vector<int> vx1;
-vector<int> vy1;
+vector<int> vx = {6, 10, 10, 20, 10, 10, 10, 20, 30, 30, 42, 43, 43}; // 5 stars
+vector<int> vy = {6, 9,  10, 10, 11, 12, 13, 17, 23, 24, 30, 30, 31};
 
-int main(){
-    int count = 0, stars = 0;
-    for (int i = 0; i < vx.size(); i++){
-        if (vx[i+1] == vx[i] +1 && vy[i+1] == vy [i]){
-            vx1.push_back(vx[i]); vx1.push_back(vx[i+1]);
-            vy1.push_back(vy[i]); vy1.push_back(vy[i+1]);
-            // if for dubble count
-            cout << "Vx: "<< vx[i] << " - "<< vx[i+1] << endl;
-            cout << "Vy: "<< vy[i] << " - "<< vy[i] << endl;
-            cout << "Count: "<< count << endl;
-            cout << endl;
+int main()
+{
+    int count = 0, stars = 0, i = 0;
+    while (vx.size() > 0)
+    {
+        int x = vx[i], x1 = vx[i + 1], y = vy[i], y1 = vy[i + 1];
+
+        if (x == x1 - 1 && y == y1)
+        {
+            vx.erase(vx.begin() + i);
+            vy.erase(vy.begin() + i);
+            cout << "Erase!: " << x << " - " << y << endl;
         }
-        else if (vx[i+1] == vx[i] && vy[i+1] == vy [i] +1){
-            vx1.push_back(vx[i]); vx1.push_back(vx[i+1]);
-            vy1.push_back(vy[i]); vy1.push_back(vy[i+1]);
-            // if for dubble count
-            cout << "Vx: "<< vx[i] << " - " << vx[i] << endl;
-            cout << "Vy: "<< vy[i] << " - " << vy[i+1] << endl;
-            cout << "Count: "<< count << endl;
-            cout << endl;
-        }
-        else{
+        else
+        {
+            vx.erase(vx.begin() + i);
+            vy.erase(vy.begin() + i);
             count++;
+            cout << count << '\t' << x << " - " << y << endl;
         }
     }
-    vx.clear();
-    vy.clear();
-    for (int i =0; i < vx1.size(); i++){
-        cout << vx1[i] << '\t' << ends;
+
+    for (int i = 0; i < vx.size(); i++)
+    {
+        cout << vx[i] << '\t' << ends;
     }
     cout << endl;
-    for (int i =0; i < vy1.size(); i++){
-        cout << vy1[i] << '\t' << ends;
+    for (int i = 0; i < vy.size(); i++)
+    {
+        cout << vy[i] << '\t' << ends;
     }
+    cout << endl;
+    cout << count << endl;
 }

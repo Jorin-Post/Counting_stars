@@ -7,13 +7,29 @@ using namespace std;
 
 vector<int> vx;
 vector<int> vy;
+
 int count_stars(){
+int count = 0, stars = 0, i = 0;
+    while (vx.size() > 0)
+    {
 
-    if (vx[1] == vx[0] +1 && vy[1] == vy [0]){
-        vx.erase(vx.begin()+0);
+        int x = vx[i], x1 = vx[i + 1], y = vy[i], y1 = vy[i + 1];
+
+        if ((x == x1 - 1 && y == y1) || (y == y1 - 1 && x == x1))
+        {
+            vx.erase(vx.begin() + i);
+            vy.erase(vy.begin() + i);
+            //cout << "Erase!: " << x << " - " << y << endl;
+        }
+        else
+        {
+            vx.erase(vx.begin() + i);
+            vy.erase(vy.begin() + i);
+            count++;
+            //cout << count << '\t' << x << " - " << y << endl;
+        }
     }
-
-    vy[0];
+    return count;
 }
 int count_pix(){
     ifstream nimage;
@@ -110,9 +126,8 @@ int main(){
     int px_count = 0;
     black_white();
     px_count = count_pix();
-    count_stars();
+    int stars = count_stars();
     cout << "Px that are white: " << px_count << endl;
-    cout << "vx that are white: " << vx.size() << endl;
-    cout << "vy that are white: " << vy.size() << endl;
+    cout << "There are " << stars << " stars in the pic!" << endl;
     return 0;        
 }
