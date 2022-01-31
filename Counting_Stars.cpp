@@ -9,27 +9,33 @@ vector<int> vx;
 vector<int> vy;
 
 int count_stars(){
-int count = 0, stars = 0, i = 0;
+    int Stars = 0, stars = 0, i = 0;
+    bool down = false;
     while (vx.size() > 0)
     {
-
         int x = vx[i], x1 = vx[i + 1], y = vy[i], y1 = vy[i + 1];
-
-        if ((x == x1 - 1 && y == y1) || (y == y1 - 1 && x == x1))
-        {
-            vx.erase(vx.begin() + i);
-            vy.erase(vy.begin() + i);
-            //cout << "Erase!: " << x << " - " << y << endl;
+        //find if there is a white pic on the +1 y axis
+        for (int c = 1; c < vx.size(); c++){
+            if (vx[c] == x && vy[c] == (vy[0] + 1))
+                down = true;
+            else if (vx[c] == x - 1 && vy[c] == (vy[0] + 1)) // 1 pixel left
+                down = true;
+            else if (vx[c] == x + 1 && vy[c] == (vy[0] + 1)) // 1 pixel right
+                down = true;
         }
-        else
-        {
-            vx.erase(vx.begin() + i);
-            vy.erase(vy.begin() + i);
-            count++;
-            //cout << count << '\t' << x << " - " << y << endl;
+        // erase if there is a other white pixel to te right below -1p below or +1p below
+        if ((x == x1 - 1 && y == y1) || down == true){
+            vx.erase(vx.begin());
+            vy.erase(vy.begin());
+        // if there is only 1 pixel left then count it as a star. and erase the pixel.
+        }else{
+            vx.erase(vx.begin());
+            vy.erase(vy.begin());
+            Stars++;
         }
+        down = false;
     }
-    return count;
+    return Stars; // return the amount of stars
 }
 int count_pix(){
     ifstream nimage;
