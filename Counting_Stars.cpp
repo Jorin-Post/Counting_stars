@@ -7,6 +7,7 @@ using namespace std;
 
 vector<int> vx;
 vector<int> vy;
+int px_count = 0;
 
 int count_stars(){
     int Stars = 0, stars = 0, i = 0;
@@ -52,7 +53,8 @@ int count_pix(){
     cout << type << '\t' << width << '\t' << height << '\t' << RGB << endl;
 
     uint8_t red, green, blue;
-    int x=0, y=0, px_count=0, px_white=0, w = stoi(width), h = stoi(height);
+    int x=0, y=0, px_white=0, w = stoi(width), h = stoi(height);
+    px_count=0;
     while (!image.eof()) // goes by pix till no left.
     {
         image >> red;
@@ -73,11 +75,11 @@ int count_pix(){
             y++;
     }
     image.close();
-    return px_count, px_white;
+    return px_white;
 }
 
 int main(){
-    int px_count, px_white = count_pix();
+    int px_white = count_pix();
     int stars = count_stars();
     cout << "Px that are in pic: " << px_count << endl;
     cout << "Px that are white: " << px_white << endl;
